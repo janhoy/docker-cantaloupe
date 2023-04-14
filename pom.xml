@@ -98,7 +98,7 @@
     <deploy.plugin.version>2.8.2</deploy.plugin.version>
     <codacy.plugin.version>1.2.0</codacy.plugin.version>
     <xml.maven.plugin.version>1.0.2</xml.maven.plugin.version>
-    <docker.maven.plugin.version>0.33.0</docker.maven.plugin.version>
+    <docker.maven.plugin.version>0.42.1</docker.maven.plugin.version>
     <maven.download.plugin.version>1.3.0</maven.download.plugin.version>
 
     <!-- What level of logging we want to see, by default, in our tests and default container config -->
@@ -119,6 +119,7 @@
     <docker.cleanup>remove</docker.cleanup>
     <docker.image>cantaloupe${artifact.qualifier}</docker.image>
     <docker.showLogs>true</docker.showLogs>
+    <docker.platforms></docker.platforms>
 
     <!-- We don't need to build the jar outside of the Docker build -->
     <jar.phase></jar.phase>
@@ -314,7 +315,7 @@
       </plugin>
 
       <!-- Enforcer enforces some basic characteristics of the project -->
-      <plugin>
+      <plugin> k
         <artifactId>maven-enforcer-plugin</artifactId>
       </plugin>
 
@@ -403,6 +404,12 @@
                   <name>${docker.image}</name>
                   <build>
                     <dockerFile>${project.basedir}/src/main/docker/Dockerfile</dockerFile>
+                    <buildx>
+                      <platforms>
+                        <!-- set comma separated list of platforms in ${docker.platforms} to invoke buildkit -->
+                        <platform>${docker.platforms}</platform>
+                      </platforms>
+                    </buildx>
                   </build>
                   <run>
                     <ports>
@@ -581,6 +588,12 @@
                       <shell>/maven/src/main/docker/scripts/show_versions.sh</shell>
                     </runCmds>
                     <entryPoint>tail -f /dev/null</entryPoint>
+                    <buildx>
+                      <platforms>
+                        <!-- set comma separated list of platforms in ${docker.platforms} to invoke buildkit -->
+                        <platform>${docker.platforms}</platform>
+                      </platforms>
+                    </buildx>
                   </build>
                 </image>
               </images>
