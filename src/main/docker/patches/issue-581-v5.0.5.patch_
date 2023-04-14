@@ -1,11 +1,15 @@
+Index: src/main/java/edu/illinois/library/cantaloupe/image/MetaIdentifier.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
 diff --git a/src/main/java/edu/illinois/library/cantaloupe/image/MetaIdentifier.java b/src/main/java/edu/illinois/library/cantaloupe/image/MetaIdentifier.java
-index 35493f3c4..bbc2aa3ab 100644
---- a/src/main/java/edu/illinois/library/cantaloupe/image/MetaIdentifier.java
-+++ b/src/main/java/edu/illinois/library/cantaloupe/image/MetaIdentifier.java
-@@ -259,6 +259,34 @@ public final class MetaIdentifier {
+--- a/src/main/java/edu/illinois/library/cantaloupe/image/MetaIdentifier.java	(revision 2e20337251fcffcf33461dc487f1fd829b963338)
++++ b/src/main/java/edu/illinois/library/cantaloupe/image/MetaIdentifier.java	(revision 3c84891d90cf62d20c8e64113b43b237929389e8)
+@@ -259,6 +259,34 @@
          }
      }
- 
+
 +    /**
 +     * Translates the meta-identifier into a URI path component.
 +     *
@@ -37,11 +41,15 @@ index 35493f3c4..bbc2aa3ab 100644
      @Override
      public String toString() {
          return new StandardMetaIdentifierTransformer().serialize(this);
+Index: src/main/java/edu/illinois/library/cantaloupe/resource/AbstractResource.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
 diff --git a/src/main/java/edu/illinois/library/cantaloupe/resource/AbstractResource.java b/src/main/java/edu/illinois/library/cantaloupe/resource/AbstractResource.java
-index 20181b298..ecc8484b1 100644
---- a/src/main/java/edu/illinois/library/cantaloupe/resource/AbstractResource.java
-+++ b/src/main/java/edu/illinois/library/cantaloupe/resource/AbstractResource.java
-@@ -13,8 +13,6 @@ import edu.illinois.library.cantaloupe.http.Status;
+--- a/src/main/java/edu/illinois/library/cantaloupe/resource/AbstractResource.java	(revision 2e20337251fcffcf33461dc487f1fd829b963338)
++++ b/src/main/java/edu/illinois/library/cantaloupe/resource/AbstractResource.java	(revision 3c84891d90cf62d20c8e64113b43b237929389e8)
+@@ -13,8 +13,6 @@
  import edu.illinois.library.cantaloupe.image.Format;
  import edu.illinois.library.cantaloupe.image.Identifier;
  import edu.illinois.library.cantaloupe.image.MetaIdentifier;
@@ -50,10 +58,10 @@ index 20181b298..ecc8484b1 100644
  import edu.illinois.library.cantaloupe.delegate.DelegateProxy;
  import edu.illinois.library.cantaloupe.delegate.DelegateProxyService;
  import edu.illinois.library.cantaloupe.delegate.UnavailableException;
-@@ -594,9 +592,8 @@ public abstract class AbstractResource {
+@@ -600,9 +598,8 @@
          final int identifierIndex         = pathComponents.indexOf(
                  getIdentifierPathComponent());
- 
+
 -        final MetaIdentifierTransformer xformer =
 -                new MetaIdentifierTransformerFactory().newInstance(getDelegateProxy());
 -        final String newMetaIdentifierString = xformer.serialize(newMetaIdentifier);
@@ -62,14 +70,18 @@ index 20181b298..ecc8484b1 100644
          publicRef.setPathComponent(identifierIndex, newMetaIdentifierString);
          return publicRef;
      }
+Index: src/main/java/edu/illinois/library/cantaloupe/util/StringUtils.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
 diff --git a/src/main/java/edu/illinois/library/cantaloupe/util/StringUtils.java b/src/main/java/edu/illinois/library/cantaloupe/util/StringUtils.java
-index c8e4c38c5..4a20f05a8 100644
---- a/src/main/java/edu/illinois/library/cantaloupe/util/StringUtils.java
-+++ b/src/main/java/edu/illinois/library/cantaloupe/util/StringUtils.java
-@@ -41,6 +41,22 @@ public final class StringUtils {
+--- a/src/main/java/edu/illinois/library/cantaloupe/util/StringUtils.java	(revision 2e20337251fcffcf33461dc487f1fd829b963338)
++++ b/src/main/java/edu/illinois/library/cantaloupe/util/StringUtils.java	(revision 3c84891d90cf62d20c8e64113b43b237929389e8)
+@@ -41,6 +41,22 @@
          return uriPathComponent;
      }
- 
+
 +    /**
 +     * Reverses {@link #decodeSlashes(String)}.
 +     *
@@ -89,14 +101,18 @@ index c8e4c38c5..4a20f05a8 100644
      public static String escapeHTML(String html) {
          StringBuilder out = new StringBuilder(Math.max(16, html.length()));
          for (int i = 0, length = html.length(); i < length; i++) {
+Index: src/test/java/edu/illinois/library/cantaloupe/image/MetaIdentifierTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
 diff --git a/src/test/java/edu/illinois/library/cantaloupe/image/MetaIdentifierTest.java b/src/test/java/edu/illinois/library/cantaloupe/image/MetaIdentifierTest.java
-index 13b519d46..b9a318de3 100644
---- a/src/test/java/edu/illinois/library/cantaloupe/image/MetaIdentifierTest.java
-+++ b/src/test/java/edu/illinois/library/cantaloupe/image/MetaIdentifierTest.java
-@@ -264,6 +264,29 @@ class MetaIdentifierTest extends BaseTest {
+--- a/src/test/java/edu/illinois/library/cantaloupe/image/MetaIdentifierTest.java	(revision 2e20337251fcffcf33461dc487f1fd829b963338)
++++ b/src/test/java/edu/illinois/library/cantaloupe/image/MetaIdentifierTest.java	(revision 3c84891d90cf62d20c8e64113b43b237929389e8)
+@@ -264,6 +264,29 @@
                  () -> instance.setScaleConstraint(scaleConstraint));
      }
- 
+
 +    /* toURIPathComponent() */
 +
 +    @Test
@@ -121,13 +137,17 @@ index 13b519d46..b9a318de3 100644
 +    }
 +
      /* toString() */
- 
+
      @Test
+Index: src/test/java/edu/illinois/library/cantaloupe/util/StringUtilsTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
 diff --git a/src/test/java/edu/illinois/library/cantaloupe/util/StringUtilsTest.java b/src/test/java/edu/illinois/library/cantaloupe/util/StringUtilsTest.java
-index e6b5f00b1..704966bf9 100644
---- a/src/test/java/edu/illinois/library/cantaloupe/util/StringUtilsTest.java
-+++ b/src/test/java/edu/illinois/library/cantaloupe/util/StringUtilsTest.java
-@@ -25,6 +25,13 @@ class StringUtilsTest extends BaseTest {
+--- a/src/test/java/edu/illinois/library/cantaloupe/util/StringUtilsTest.java	(revision 2e20337251fcffcf33461dc487f1fd829b963338)
++++ b/src/test/java/edu/illinois/library/cantaloupe/util/StringUtilsTest.java	(revision 3c84891d90cf62d20c8e64113b43b237929389e8)
+@@ -25,6 +25,13 @@
          assertEquals("ca/ts", StringUtils.decodeSlashes("ca$$ts"));
      }
  
