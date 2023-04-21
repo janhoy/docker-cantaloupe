@@ -315,7 +315,7 @@
       </plugin>
 
       <!-- Enforcer enforces some basic characteristics of the project -->
-      <plugin> k
+      <plugin>
         <artifactId>maven-enforcer-plugin</artifactId>
       </plugin>
 
