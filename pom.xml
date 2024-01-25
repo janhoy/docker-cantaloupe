@@ -588,12 +588,6 @@
                       <shell>/maven/src/main/docker/scripts/show_versions.sh</shell>
                     </runCmds>
                     <entryPoint>tail -f /dev/null</entryPoint>
-                    <buildx>
-                      <platforms>
-                        <!-- set comma separated list of platforms in ${docker.platforms} to invoke buildkit -->
-                        <platform>${docker.platforms}</platform>
-                      </platforms>
-                    </buildx>
                   </build>
                 </image>
               </images>
