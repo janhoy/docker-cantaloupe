@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 # Define locations of our container's property values
-PROPERTIES=/etc/cantaloupe.properties
-PROPERTIES_TMPL=/etc/cantaloupe.properties.tmpl
-PROPERTIES_DEFAULT=/etc/cantaloupe.properties.default
+PROPERTIES_TMPL=/etc/cantaloupe/cantaloupe.properties.tmpl
+PROPERTIES_DEFAULT=/etc/cantaloupe/cantaloupe.properties.default
 
 # Define location of centralized maven repository
 MAVEN_REPO="https://repo1.maven.org/maven2"
@@ -31,7 +30,7 @@ print(template.safe_substitute(properties))
 EOT
 
 # Write our merged properties file to /etc directory
-$PYTHON -c "$SCRIPT" >> $PROPERTIES
+$PYTHON -c "$SCRIPT" >> $CONFIG_FILE
 
 # If we have a DELEGATE_URL, grab it and copy it to the container for us to use
 if [[ -v DELEGATE_URL && ! -z DELEGATE_URL ]]; then
@@ -45,13 +44,14 @@ fi
 
 # If LOGBACK_URL is defined, download and insert logback.xml file into war file
 if [[ ! -z "${LOGBACK_URL}" ]]; then
-  zip -qd /usr/local/cantaloupe/cantaloupe-*.*ar WEB-INF/classes/logback.xml
+  zip -qd /usr/local/cantaloupe/cantaloupe-*.*ar WEB-INF/classes/logback.xml logback.xml
   cd /tmp
   mkdir -p WEB-INF/classes WEB-INF/lib
   curl -so WEB-INF/classes/logback.xml ${LOGBACK_URL}
+  curl -so logback.xml ${LOGBACK_URL}
 
   # Package up the logback file and dependent jars
-  zip -qur /usr/local/cantaloupe/cantaloupe-*.*ar WEB-INF
+  zip -qur /usr/local/cantaloupe/cantaloupe-*.*ar WEB-INF logback.xml
 
   # Clean up scratch space
   rm -rf /tmp/WEB-INF
