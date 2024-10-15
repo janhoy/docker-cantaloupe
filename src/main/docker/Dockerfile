@@ -1,6 +1,6 @@
 
 # We do a multi-stage build; the first stage builds the Cantaloupe code
-FROM maven:3.9.4-eclipse-temurin-17 AS MAVEN_TOOL_CHAIN
+FROM maven:3.9.8-eclipse-temurin-22 AS MAVEN_TOOL_CHAIN
 
 # Where we find the stable Cantaloupe Jar file
 ENV CANTALOUPE_RELEASES="https://github.com/cantaloupe-project/cantaloupe/releases/download"
@@ -119,6 +119,7 @@ RUN apt-get update -qq && \
     curl=${curl.version} \
     ffmpeg=${ffmpeg.version} \
     python2=${python2.version} \
+    libperl5.34=${libperl.version} \
     < /dev/null > /dev/null && \
     mkdir -p /opt/libjpeg-turbo/lib && \
     ln -s /usr/lib/x86_64-linux-gnu/libturbojpeg.so.0 /opt/libjpeg-turbo/lib/libturbojpeg.so && \
@@ -171,15 +172,6 @@ RUN mkdir -p /var/log/cantaloupe /var/cache/cantaloupe && \
     chown -R cantaloupe:users /var/log/cantaloupe /var/cache/cantaloupe /etc/cantaloupe /usr/local/cantaloupe/ \
       /usr/local/bin/docker-entrypoint.sh
 
-# Install grok JPEG-2000 library and tools
-WORKDIR /tmp
-ARG GROK_RELEASES="https://github.com/GrokImageCompression/grok/releases"
-RUN curl -sL "${GROK_RELEASES}/download/v${grok.version}/grok-ubuntu-latest.zip" > grok.zip && \
-    unzip grok.zip && \
-    cp ./grok-ubuntu-latest/bin/grk_* /usr/bin && \
-    cp ./grok-ubuntu-latest/lib/*libgrok* /usr/lib && \
-    cp -r ./grok-ubuntu-latest/include/grok* /usr/include && \
-    rm -rf /tmp/grok-ubuntu-latest grok.zip
 
 # Set up logging, keeping a separate log for just the errors (in addition to the full log)
 ENV CANTALOUPE_LOG_APPLICATION_ROLLINGFILEAPPENDER_PATHNAME=/var/log/cantaloupe/application.log
